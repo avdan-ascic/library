@@ -38,13 +38,6 @@ const AddBook = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // authenticate()
-    //   .then((data) => {
-    //     if (!data?.user) return navigate("/");
-    //     else if (data?.user?.role !== "admin") return navigate("/books");
-    //   })
-    //   .catch((err) => console.log(err));
-
     readAll()
       .then((data) => setPublishers(data.publishers))
       .catch((err) => console.log(err));

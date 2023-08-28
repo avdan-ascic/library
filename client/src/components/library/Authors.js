@@ -60,15 +60,6 @@ const Authors = () => {
       .catch((err) => console.log(err));
   };
   
-  // useEffect(() => {
-  //   authenticate()
-  //     .then((data) => {
-  //       if (!data?.user) return navigate("/");
-  //     })
-  //     .catch((err) => console.log(err));
-  //   // eslint-disable-next-line
-  // }, []);
-
   return (
     <>
       <Container
