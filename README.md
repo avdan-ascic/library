@@ -35,8 +35,8 @@ You can also run cloud database using **mongoDB Compas**. Create a clutser and p
  To use the code effectively, follow these steps:
 
 - Place your Excel file (LibraryData.xlsx) containing the data you want to seed in the specified path (./src/data/LibraryData.xlsx).
-- Install the required packages (read-excel-file/node and sharp) using the following commands: npm install read-excel-file/node sharp.
-- Include the seedData function from the provided code in your application, and call it to start seeding data. The seedData function uses the       read-excel-file/node package to read Excel sheets and sharp for image processing.
+- Install the required packages (read-excel-file and sharp) using the following commands: npm install read-excel-file sharp .
+- Include the seedData function from the provided code in your application, and call it to start seeding data. The seedData function uses the       read-excel-file package to read Excel sheets and sharp for image processing.
 
 ## Environment Variables
 
