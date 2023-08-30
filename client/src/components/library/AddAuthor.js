@@ -62,6 +62,49 @@ const AddAuthor = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    if (!values.name)
+      return setValues({
+        ...values,
+        error: "Name is required",
+        redirect: false,
+      });
+    if (!values.biography)
+      return setValues({
+        ...values,
+        error: "Biography is required",
+        redirect: false,
+      });
+    if (!values.birthday)
+      return setValues({
+        ...values,
+        error: "Birthday is required",
+        redirect: false,
+      });
+    if (!values.email)
+      return setValues({
+        ...values,
+        error: "Email is required",
+        redirect: false,
+      });
+
+    if (!authImage) {
+      setValues({
+        ...values,
+        error: "Author image is required",
+        redirect: false,
+      });
+      return;
+    }
+
+    if (addedBooks.length === 0) {
+      setValues({
+        ...values,
+        error: "At least one book is required",
+        redirect: false,
+      });
+      return;
+    }
+
     const formData = new FormData();
     formData.append("image", authImage);
     formData.append("author", JSON.stringify(values));
@@ -69,10 +112,11 @@ const AddAuthor = () => {
 
     create(formData)
       .then((data) => {
-        if (data?.response?.data?.error)
+        if (data.response.data.error)
           return setValues({
             ...values,
             error: data.response.data.error,
+
             redirect: false,
           });
         else {
@@ -195,19 +239,20 @@ const AddAuthor = () => {
                 })}
             </List>
           </Grid.Column>
-
-          {values.error && (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                margin: "1rem",
-              }}
-            >
-              <Icon name="exclamation circle" color="red" />{" "}
-              <p style={{ color: "red" }}>{values.error}</p>
-            </div>
-          )}
+          <Container>
+            {values.error && (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  margin: "1rem",
+                }}
+              >
+                <Icon name="exclamation" color="red" />{" "}
+                <p style={{ color: "red" }}>{values.error}</p>
+              </div>
+            )}
+          </Container>
 
           <div
             style={{

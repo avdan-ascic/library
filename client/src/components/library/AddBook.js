@@ -85,10 +85,69 @@ const AddBook = () => {
   };
 
   const handleChange = (name) => (event) => {
-    setValues({ ...values, [name]: event.target.value });
+    let newValue = event.target.value;
+
+    if (name === "title") {
+      newValue = newValue.substring(0, 30);
+    }
+    if (parseFloat(newValue) < 0) {
+      setValues({ ...values, error: "You cannot enter a negative number" });
+    } else {
+      setValues({ ...values, [name]: newValue, error: "" });
+    }
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (!values.title)
+      return setValues({
+        ...values,
+        error: "Title is required",
+        redirect: false,
+      });
+    if (!values.description)
+      return setValues({
+        ...values,
+        error: "Description is required",
+        redirect: false,
+      });
+    if (!values.pages)
+      return setValues({
+        ...values,
+        error: "Pages is required",
+        redirect: false,
+      });
+    if (!values.title)
+      return setValues({
+        ...values,
+        error: "Price is required",
+        redirect: false,
+      });
+    if (!values.publisherId)
+      return setValues({
+        ...values,
+        error: "You have to select a publisher",
+        redirect: false,
+      });
+
+    if (!bookImage) {
+      setValues({
+        ...values,
+        error: "Book image is required",
+        redirect: false,
+      });
+      return;
+    }
+
+    if (addedAuthors.length === 0) {
+      setValues({
+        ...values,
+        error: "At least one author is required",
+        redirect: false,
+      });
+      return;
+    }
 
     const formData = new FormData();
     formData.append("image", bookImage);
@@ -230,19 +289,21 @@ const AddBook = () => {
                 })}
             </List>
           </Grid.Column>
-
-          {values.error && (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                margin: "1rem",
-              }}
-            >
-              <Icon name="exclamation circle" color="red" />{" "}
-              <p style={{ color: "red" }}>{values.error}</p>
-            </div>
-          )}
+          <Container>
+            {values.error && (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  margin: "1rem",
+                }}
+              >
+                <Icon name="exclamation " color="red" />{" "}
+                <p style={{ color: "red" }}>{values.error}</p>
+              </div>
+            )}
+          </Container>
 
           <div
             style={{

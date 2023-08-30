@@ -81,6 +81,7 @@ const Books = () => {
           <Table celled unstackable selectable style={{ marginBottom: "5rem" }}>
             <Table.Header>
               <Table.Row>
+              <Table.HeaderCell>Id</Table.HeaderCell>
                 <Table.HeaderCell>Title</Table.HeaderCell>
                 <Table.HeaderCell>Pages</Table.HeaderCell>
                 <Table.HeaderCell>Price</Table.HeaderCell>
@@ -98,6 +99,12 @@ const Books = () => {
               {books.map((book, index) => {
                 return (
                   <Table.Row key={index}>
+                      <Table.Cell
+                      onClick={() => navigate(`/book/${book._id}`)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      {book._id}
+                    </Table.Cell>
                     <Table.Cell
                       onClick={() => navigate(`/book/${book._id}`)}
                       style={{ cursor: "pointer" }}

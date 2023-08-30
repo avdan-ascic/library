@@ -17,6 +17,7 @@ const Header = () => {
       .then(() => {
         setLoggedIn(false);
         setUser({ id: "", name: "", role: "" });
+        sessionStorage.clear();
         navigate("/");
       })
       .catch((err) => console.log(err));

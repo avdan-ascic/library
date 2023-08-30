@@ -3,25 +3,23 @@ import axios from "axios";
 import { useState, createContext, useEffect } from "react";
 
 import MainRouter from "./MainRouter";
+import { isAuth } from "./helpers/auth";
 
 axios.defaults.withCredentials = true;
 
 export const UserContext = createContext(null);
 
 const App = () => {
-  const [loggedIn, setLoggedIn] = useState(() => {
-    const storedLoggedin = sessionStorage.getItem("loggedIn");
-    return storedLoggedin ? JSON.parse(storedLoggedin) : false;
-  });
-  const [user, setUser] = useState(() => {
-    const storedUser = sessionStorage.getItem("user");
-    return storedUser ? JSON.parse(storedUser) : { id: "", name: "", role: "" };
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [user, setUser] = useState({
+    id: "",
+    name: "",
+    role: "",
   });
 
   useEffect(() => {
-    sessionStorage.setItem("loggedIn", JSON.stringify(loggedIn));
-    sessionStorage.setItem("user", JSON.stringify(user));
-  }, [loggedIn, user]);
+    isAuth(setLoggedIn, setUser);
+  }, []);
 
   return (
     <UserContext.Provider value={{ loggedIn, setLoggedIn, user, setUser }}>
